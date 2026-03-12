@@ -5,7 +5,9 @@ class Email extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return SizedBox(
+      width:MediaQuery.of(context).size.width* 0.8,
+      child:TextFormField(
       keyboardType: TextInputType.emailAddress,
       decoration: const InputDecoration(
         prefixIcon: Icon(Icons.email),
@@ -15,6 +17,7 @@ class Email extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
       ),
+    ),
     );
   }
 }
