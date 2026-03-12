@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Email extends StatelessWidget {
-  const Email({super.key});
-
+  final TextEditingController emailController;
+  const Email({super.key, required this.emailController});
   @override
   Widget build(BuildContext context) {
+    
     return SizedBox(
       width:MediaQuery.of(context).size.width* 0.8,
       child:TextFormField(
+      controller: emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: const InputDecoration(
         prefixIcon: Icon(Icons.email),
