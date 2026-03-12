@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login_page_flutter/src/widgets/email_input.dart';
 import 'package:login_page_flutter/src/widgets/logo_widget.dart';
 import 'package:login_page_flutter/src/widgets/password_input.dart';
+import 'package:login_page_flutter/src/widgets/submit_button.dart';
 class Login extends StatelessWidget {
   const Login({super.key});
 
@@ -30,6 +31,8 @@ class Login extends StatelessWidget {
         Email(),
         SizedBox(height: 30),
         PasswordInput(),
+        SizedBox(height: 30),
+        Submit()
         ],
       )
     )
