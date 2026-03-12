@@ -3,9 +3,13 @@ import 'package:login_page_flutter/src/widgets/email_input.dart';
 import 'package:login_page_flutter/src/widgets/logo_widget.dart';
 import 'package:login_page_flutter/src/widgets/password_input.dart';
 import 'package:login_page_flutter/src/widgets/submit_button.dart';
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
-
+  @override
+  State<Login> createState() => _LoginState();
+}
+class _LoginState extends State<Login> {
+   final TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,11 +32,11 @@ class Login extends StatelessWidget {
         children: [
         Logo(),
         SizedBox(height: 30),
-        Email(),
+        Email(emailController: emailController),
         SizedBox(height: 30),
         PasswordInput(),
         SizedBox(height: 30),
-        Submit()
+        Submit(emailController: emailController)
         ],
       )
     )
