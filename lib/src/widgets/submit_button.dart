@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 class Submit extends StatelessWidget {
    final TextEditingController emailController;
-  const Submit({super.key,required this.emailController});
+   final GlobalKey<FormState>formKey;
+   const Submit({super.key,required this.emailController, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +12,9 @@ class Submit extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                    String email = emailController.text;
-                   if (kDebugMode) {
+                   if (formKey.currentState!.validate()) {
                      print('Login successful for user: $email');
-                   }
-              
-                  showDialog(context: context, builder:(BuildContext context){
+                     showDialog(context: context, builder:(BuildContext context){
                     return AlertDialog(
                       title: Text('Login Success'),
                       content: Text('Welcome $email!\nYou have successfully logged in.'),
@@ -27,6 +26,7 @@ class Submit extends StatelessWidget {
                       ]
                     );
                   });
+                }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green,
