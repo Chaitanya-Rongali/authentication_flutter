@@ -12,34 +12,42 @@ class _LoginState extends State<Login> {
    final TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-    appBar: AppBar(
-      title: Text("Login"),
-      backgroundColor: const Color.fromRGBO(111, 0, 255, 1),
-      foregroundColor: Colors.white,
-      leading: Icon(Icons.menu),
-       actions:<Widget> [
-        Padding(padding:EdgeInsets.only(right:20),
-          child: Icon(Icons.search,size: 26,),
-        ),Padding(padding: EdgeInsets.only(right:20),
-        child:Icon(Icons.more_vert,size:26))
-      ],
-    ),
-    body:Center(
-      child:Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-        Logo(),
-        SizedBox(height: 30),
-        Email(emailController: emailController),
-        SizedBox(height: 30),
-        PasswordInput(),
-        SizedBox(height: 30),
-        Submit(emailController: emailController)
+    return MaterialApp(
+      home: Scaffold(
+      appBar: AppBar(
+        title: Text("Login"),
+        backgroundColor: const Color.fromRGBO(111, 0, 255, 1),
+        foregroundColor: Colors.white,
+        leading: Icon(Icons.menu),
+         actions:<Widget> [
+          Padding(padding:EdgeInsets.only(right:20),
+            child: Icon(Icons.search,size: 26,),
+          ),Padding(padding: EdgeInsets.only(right:20),
+          child:Icon(Icons.more_vert,size:26))
         ],
+      ),
+      body:Form(
+        key:_formKey,
+        child: Center(
+          child:Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+            Logo(),
+            SizedBox(height: 30),
+            EmailWidget(controller: emailController),
+            SizedBox(height: 30),
+            PasswordWidget(controller: passwordController),
+            SizedBox(height: 30),
+            Submit( formKey: _formKey,
+            emailController: emailController,
+            )
+           
+            ],
+          )
+        ),
       )
-    )
+      ),
     );
   }
 }

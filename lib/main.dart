@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../src/screens/login_screen.dart';
+import 'package:login_page_flutter/src/core/app_routes.dart';
 void main()=>runApp(App());
 
 class App extends StatelessWidget {
@@ -7,9 +7,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      routerConfig: router,
     );
   }
 }
