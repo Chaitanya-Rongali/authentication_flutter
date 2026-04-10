@@ -17,7 +17,7 @@ class _LoginState extends State<Login> {
     return MaterialApp(
       home: Scaffold(
       appBar: AppBar(
-        title: Text("Logikn kjnif"),
+        title: Text("Login"),
         backgroundColor: const Color.fromRGBO(111, 0, 255, 1),
         foregroundColor: Colors.white,
         leading: Icon(Icons.menu),
