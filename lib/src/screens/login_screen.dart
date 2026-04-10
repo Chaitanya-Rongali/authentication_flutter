@@ -9,13 +9,15 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 class _LoginState extends State<Login> {
-   final TextEditingController emailController = TextEditingController();
+   final emailController = TextEditingController();
+   final _formKey = GlobalKey<FormState>();
+  final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("Logikn kjnif"),
         backgroundColor: const Color.fromRGBO(111, 0, 255, 1),
         foregroundColor: Colors.white,
         leading: Icon(Icons.menu),
