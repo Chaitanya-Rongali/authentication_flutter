@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
-class PasswordInput extends StatelessWidget {
-  const PasswordInput({super.key});
- @override
+class PasswordWidget extends StatelessWidget {
+  final TextEditingController controller;
+  const PasswordWidget({super.key, required this.controller});
+
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width*0.8,
-      child: TextFormField(
-      decoration: InputDecoration(prefixIcon: Icon(Icons.key),
-      labelText:"Password",iconColor:const Color.fromARGB(255, 207, 23, 23),
-      border: OutlineInputBorder(borderRadius:BorderRadius.all(Radius.circular(20)))
-      ),
-      keyboardType:TextInputType.visiblePassword
-    ),
+    return TextFormField(
+      controller: controller,
+      obscureText: true,
+      decoration: InputDecoration(prefixIcon: Icon(Icons.lock),
+      labelText: 'Password',
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),),
+      validator: (value) {
+        if (value == null || value.length < 10) {
+          return 'Password must be at least 10 characters';
+        }
+        return null;
+      },
     );
   }
 }
