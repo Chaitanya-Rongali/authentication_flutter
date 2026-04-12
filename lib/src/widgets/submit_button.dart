@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
 class Submit extends StatelessWidget {
    final TextEditingController emailController;
    final GlobalKey<FormState>formKey;
@@ -38,5 +40,17 @@ class Submit extends StatelessWidget {
                 ),
               ),
             );
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green,
+          foregroundColor: Colors.white,
+        ),
+        child: Text(
+          'Login',
+          style: TextStyle(color: Colors.white, fontSize: 22),
+        ),
+      ),
+    );
   }
 }
