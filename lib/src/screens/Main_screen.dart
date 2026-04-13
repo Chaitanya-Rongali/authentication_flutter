@@ -8,7 +8,7 @@ class MainScreen extends StatelessWidget {
   int _getIndex(BuildContext context) {
     final location = GoRouterState.of(context).uri.toString();
     if (location.startsWith('/profile')) return 1;
-    return 0; // default Home
+    return 0; 
   }
 
   @override
@@ -19,11 +19,10 @@ class MainScreen extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (index) {
-          final email = GoRouterState.of(context).extra as String?;
           if (index == 0) {
-            context.go('/home',extra: email);
+            context.go('/home');
           } else {
-            context.go('/profile',extra:email);
+            context.go('/profile');
           }
         },
         items: const [
