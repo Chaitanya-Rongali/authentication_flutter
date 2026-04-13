@@ -47,6 +47,7 @@ class _LoginState extends State<Login> {
           SizedBox(height: 30),
           Submit( formKey: _formKey,
           emailController: emailController,
+          userNameController: userNameController,
           )
          
           ],
