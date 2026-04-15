@@ -8,9 +8,10 @@ import 'package:permission_handler/permission_handler.dart';
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
-   @override
+  @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
+
 class _ProfileScreenState extends State<ProfileScreen> {
   String? email;
   String? username;
@@ -33,33 +34,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  Future<void> requestCameraPermission() async {
-    final status = await Permission.camera.request();
-    if (status.isGranted) {
-         print("Camera Permission Granted");
-     } else {
-print("Permission Denied");
-if (await Permission.camera.isPermanentlyDenied) {
-openAppSettings();
-}
-}
+  Future<void> pickProfileImage(ImageSource source) async {
+    final PermissionStatus status;
+    if (source == ImageSource.camera) {
+      status = await Permission.camera.request();
+    } else if (Platform.isAndroid) {
+      status = await Permission.storage.request();
+    } else {
+      status = await Permission.photos.request();
+    }
+    if (!status.isGranted) {
+      openAppSettings();
+    }
+    final picker = ImagePicker();
+    final picked = await picker.pickImage(source: source);
+    if (picked != null) {
+      setState(() => profileImage = File(picked.path));
+    }
   }
-
-  Future<void> requestGalleryPermission() async {
-    final status = await Permission.photos.request();
-    if (status.isGranted) {
-         print("Gallery Permission Granted");
-     } else {
-print("Permission Denied"); 
-if (await Permission.photos.isPermanentlyDenied) {
-openAppSettings();
-}
-}
-  }
-
-  
-
-  
 
   void showImagePickerDialog() {
     showDialog(
@@ -72,14 +64,14 @@ openAppSettings();
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                requestCameraPermission();
+                pickProfileImage(ImageSource.camera);
               },
               child: const Text('Camera'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                requestGalleryPermission();
+                pickProfileImage(ImageSource.gallery);
               },
               child: const Text('Gallery'),
             ),
@@ -116,12 +108,17 @@ openAppSettings();
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.grey[300],
-                    border: Border.all(
-                      color: Colors.blue,
-                      width: 2,
-                    ),
+                    border: Border.all(color: Colors.blue, width: 2),
+                    image: profileImage != null
+                        ? DecorationImage(
+                            image: FileImage(profileImage!),
+                            fit: BoxFit.cover,
+                          )
+                        : null,
                   ),
-                  
+                  child: profileImage == null
+                      ? const Icon(Icons.person, size: 60, color: Colors.grey)
+                      : null,
                 ),
                 Positioned(
                   bottom: 0,
