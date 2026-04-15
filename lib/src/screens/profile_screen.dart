@@ -38,19 +38,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final PermissionStatus status;
     if (source == ImageSource.camera) {
       status = await Permission.camera.request();
-    } else if (Platform.isAndroid) {
-      status = await Permission.storage.request();
-    } else {
+    }else {
       status = await Permission.photos.request();
     }
-    if (!status.isGranted) {
+    if (status.isPermanentlyDenied) {
       openAppSettings();
+      return;
     }
-    final picker = ImagePicker();
-    final picked = await picker.pickImage(source: source);
-    if (picked != null) {
-      setState(() => profileImage = File(picked.path));
-    }
+    if (!status.isGranted) {
+    return; 
+  }
+      final picker = ImagePicker();
+      final picked = await picker.pickImage(source: source);
+      if (picked != null) {
+        setState(() => profileImage = File(picked.path));
+      }
+    
   }
 
   void showImagePickerDialog() {
