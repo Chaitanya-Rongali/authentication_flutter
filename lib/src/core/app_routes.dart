@@ -1,10 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:login_page_flutter/src/screens/Main_screen.dart';
 import 'package:login_page_flutter/src/screens/home_screen.dart';
 import 'package:login_page_flutter/src/screens/login_screen.dart';
 import 'package:login_page_flutter/src/screens/profile_screen.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final GoRouter router = GoRouter(
+  navigatorKey: navigatorKey,
   initialLocation: '/',
   routes: [
     GoRoute(path: '/', builder: (context, state) => const Login()),
