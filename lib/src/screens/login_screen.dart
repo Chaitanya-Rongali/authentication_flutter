@@ -3,6 +3,7 @@ import 'package:login_page_flutter/src/widgets/email_input.dart';
 import 'package:login_page_flutter/src/widgets/logo_widget.dart';
 import 'package:login_page_flutter/src/widgets/password_input.dart';
 import 'package:login_page_flutter/src/widgets/submit_button.dart';
+import 'package:login_page_flutter/src/widgets/text_input.dart';
 class Login extends StatefulWidget {
   const Login({super.key});
   @override
@@ -12,6 +13,8 @@ class _LoginState extends State<Login> {
    final emailController = TextEditingController();
    final _formKey = GlobalKey<FormState>();
   final passwordController = TextEditingController();
+  final userNameController=TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,12 +39,15 @@ class _LoginState extends State<Login> {
           children: [
           Logo(),
           SizedBox(height: 30),
+          UserNameWidget(controller:userNameController),
+          SizedBox(height: 30),
           EmailWidget(controller: emailController),
           SizedBox(height: 30),
           PasswordWidget(controller: passwordController),
           SizedBox(height: 30),
           Submit( formKey: _formKey,
           emailController: emailController,
+          userNameController: userNameController,
           )
          
           ],

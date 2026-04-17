@@ -1,23 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Submit extends StatelessWidget {
   final TextEditingController emailController;
+  final TextEditingController userNameController;
   final GlobalKey<FormState> formKey;
   const Submit({
     super.key,
     required this.emailController,
+    required this.userNameController,
     required this.formKey,
   });
+  Future<void> saveUserData(String email,String username) async {
+    try{
+      final preferences = await SharedPreferences.getInstance();
+      await preferences.setString('username',username );
+      await preferences.setString('email', email);
+      print("Saved successfully ");
+    }catch(e){
+       print("Error saving data : $e");
+    }
+    
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(28.0),
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           String email = emailController.text;
+          String username=userNameController.text;
+           
           if (formKey.currentState!.validate()) {
+            await saveUserData(email,username);
             print('Login successful for user: $email');
             showDialog(
               context: context,
@@ -31,8 +48,8 @@ class Submit extends StatelessWidget {
                     TextButton(
                       child: Text('OK'),
                       onPressed: () {
-                        Navigator.of(context);
-                        context.go('/home', extra: emailController.text);
+                        Navigator.of(context).pop();
+                        context.go('/home');
                       },
                     ),
                   ],

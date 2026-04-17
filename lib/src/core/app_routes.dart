@@ -17,7 +17,7 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: '/profile',
           builder: (context, state) =>
-              ProfileScreen(email: state.extra as String?),
+              ProfileScreen(),
         ),
       ],
     ),
