@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:login_page_flutter/src/core/notification_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -142,6 +143,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final pending = await NotificationService.pending();
+              final alreadyScheduled = pending.any((n) => n.id == 1);
+              print(alreadyScheduled);
+              
+              if (alreadyScheduled) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Reminder already set")),
+                );
+                return;
+              }
+              await NotificationService.scheduleReminder();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Reminder set for 5 minutes")),
+              );
+            },
+            child: const Text("Remind me in 5 min"),
           ),
           const SizedBox(height: 20),
           Text('Username: $displayUsername'),
