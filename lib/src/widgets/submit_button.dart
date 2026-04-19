@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:login_page_flutter/src/core/notification_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Submit extends StatelessWidget {
@@ -47,8 +48,9 @@ class Submit extends StatelessWidget {
                   actions: [
                     TextButton(
                       child: Text('OK'),
-                      onPressed: () {
+                      onPressed: () async {
                         Navigator.of(context).pop();
+                         await NotificationService.showWelcome(username);
                         context.go('/home');
                       },
                     ),
